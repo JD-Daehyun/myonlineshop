@@ -1,10 +1,15 @@
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/slices/cart-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../store/slices/cart-slice";
 
 export default function ProductTile({ product }) {
   const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state);
+
   function handleAddToCart() {
     dispatch(addToCart(product));
+  }
+  function handleRemoveFromCart() {
+    dispatch(removeFromCart(product.id));
   }
 
   return (
@@ -24,10 +29,16 @@ export default function ProductTile({ product }) {
         </div>
         <div className="flex items-center justify-center w-full mt-5">
           <button
-            onClick={handleAddToCart}
+            onClick={
+              cart.some((item) => item.id === product.id)
+                ? handleRemoveFromCart
+                : handleAddToCart
+            }
             className="bg-red-950 text-white border-2 rounded-lg font-bold p-4"
           >
-            Add To Cart
+            {cart.some((item) => item.id === product.id)
+              ? "Remove From Cart"
+              : "Add To Cart"}
           </button>
         </div>
       </div>
