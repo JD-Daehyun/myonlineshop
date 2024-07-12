@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 
 
 
@@ -14,5 +15,21 @@ export default function Cart(){
         //reduce function to combine the total amount!
         setTotalCart(cart.reduce((acc,curr) => acc + curr.price, 0));
     },[cart])
-    return <div>Cart</div>
+
+
+    return <div>
+        {
+            cart && cart.length ? <div>
+
+            </div> : <div className="min-h-[80vh] flex flex-col items-center justify-center">
+                <h1 className="text-gray-800 font-bold text-xl mb-2">Your Cart is empty!</h1>
+                <Link to={'/'}>
+                    <button className="bg-red-950 text-white border-2 rounded-lg font-bold p-4">
+                        Shop Now!
+                    </button>
+                </Link>
+
+            </div>
+        }
+    </div>
 }
