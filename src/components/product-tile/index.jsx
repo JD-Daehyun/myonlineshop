@@ -1,7 +1,11 @@
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/slices/cart-slice";
+
 export default function ProductTile({ product }) {
-
-    
-
+  const dispatch = useDispatch();
+  function handleAddToCart() {
+    dispatch(addToCart(product));
+  }
 
   return (
     <div>
@@ -19,7 +23,12 @@ export default function ProductTile({ product }) {
           </h1>
         </div>
         <div className="flex items-center justify-center w-full mt-5">
-            <button className="bg-red-950 text-white border-2 rounded-lg font-bold p-4">Add To Cart</button>
+          <button
+            onClick={handleAddToCart}
+            className="bg-red-950 text-white border-2 rounded-lg font-bold p-4"
+          >
+            Add To Cart
+          </button>
         </div>
       </div>
     </div>
